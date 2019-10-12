@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 
 import ChoiceCard from "./components/ChoiceCard";
+import ChoiceButtons from "./components/ChoiceButtons";
 
 const CHOICES = {
   scissors: {
@@ -47,27 +48,25 @@ function App() {
   const [playerChoice, setPlayerChoice] = useState(null);
   const [gameHistory, setGameHistory] = useState([]);
   const [prompt, setGamePrompt] = useState(null);
-  const [previousWinner, setPreviousWinner] = useState('New Game');
+  const [previousWinner, setPreviousWinner] = useState(null);
 
   const onPlayerChoose = playerChoice => {
     const [result, compChoice] = getRoundOutcome(playerChoice);
     const newUserChoice = CHOICES[playerChoice];
     const newComputerChoice = CHOICES[compChoice];
-    setGamePrompt(result)
-    gameHistory.push(result)
-    setGameHistory(gameHistory)
+    setGamePrompt(result);
+    gameHistory.push(result);
+    setGameHistory(gameHistory);
     setPlayerChoice(newUserChoice);
     setComputerChoice(newComputerChoice);
-    if (result === 'Victory!') {
-      setPreviousWinner('You')
-    } else if (result === 'Defeat!') {
-      setPreviousWinner('Computer')
+    if (result === "Victory!") {
+      setPreviousWinner("You");
+    } else if (result === "Defeat!") {
+      setPreviousWinner("Computer");
     } else {
-      setPreviousWinner('Tie')
+      setPreviousWinner("Tie");
     }
   };
-
-  console.log('previousWinner', previousWinner)
 
   return (
     <div className="App">
@@ -79,27 +78,8 @@ function App() {
               imgURL={computerChoice.url}
               previousWinner={previousWinner}
             />
-            {prompt}
-            <div className="container">
-              <button
-                className="btn btn-success btn-lg"
-                onClick={() => onPlayerChoose("rock")}
-              >
-                Rock
-              </button>
-              <button
-                className="btn btn-success btn-lg"
-                onClick={() => onPlayerChoose("paper")}
-              >
-                Paper
-              </button>
-              <button
-                className="btn btn-success btn-lg"
-                onClick={() => onPlayerChoose("scissors")}
-              >
-                Scissors
-              </button>
-            </div>
+            <h1>{prompt}</h1>
+            <ChoiceButtons onPlayerChoose={onPlayerChoose} />
             <ChoiceCard
               title="You"
               previousWinner={previousWinner}
@@ -108,9 +88,11 @@ function App() {
           </div>
           <div className="col-md-4 themed-grid-col">
             <h3>History</h3>
-            <ul>{gameHistory.map(result => {
-              return <li>{result}</li>
-            })}</ul>
+            <ul>
+              {gameHistory.map(result => {
+                return <li>{result}</li>;
+              })}
+            </ul>
           </div>
         </div>
       </div>

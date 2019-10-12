@@ -1,11 +1,26 @@
 import React from "react";
 
-export default function ChoiceButtons() {
+export default function ChoiceButtons(props) {
   return (
-    <div class="container">
-      <button className="btn btn-success btn-lg">Rock</button>
-      <button className="btn btn-success btn-lg">Paper</button>
-      <button className="btn btn-success btn-lg">Scissors</button>
+    <div className="container">
+      <button
+        className="btn btn-success btn-lg"
+        onClick={() => props.onPlayerChoose("rock")}
+      >
+        Rock
+      </button>
+      <button
+        className="btn btn-success btn-lg"
+        onClick={() => props.onPlayerChoose("paper")}
+      >
+        Paper
+      </button>
+      <button
+        className="btn btn-success btn-lg"
+        onClick={() => props.onPlayerChoose("scissors")}
+      >
+        Scissors
+      </button>
     </div>
   );
 }
